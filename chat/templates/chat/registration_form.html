@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+</head>
+<body>
+    <h1>
+        Register yourself to get going.
+    </h1>
+    <form method="post" action="" autocomplete="off">
+        {% csrf_token %}
+        {% for targets in form %}
+            {{targets.errors }}
+            {{ targets.label_tag }}
+            {{ targets }}
+        <br>
+        {% endfor %}
+        <input type="submit" value="submit"> <a href="signin">Already have an account?</a>
+    </form>
+</body>
+</html>

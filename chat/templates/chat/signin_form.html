@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign in</title>
+</head>
+<body>
+    <h2>
+        Sign in to get started!
+    </h2>
+     <form method="post" action="" autocomplete="off">
+        {% csrf_token %}
+        {% for targets in form %}
+            {{targets.errors }}
+            {{ targets.label_tag }}
+            {{ targets }}
+            <br>
+        {% endfor %}
+        <input type="Submit" value="SignIn" name="Signin"><a href="/chat">Create a account!</a>
+    </form>
+</body>
+</html>
