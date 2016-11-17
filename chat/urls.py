@@ -5,8 +5,8 @@ from . import views
 app_name = 'chat'
 urlpatterns = [
     url(r'^$', views.UserFormView.as_view(), name='index'),
-    url(r'^send/$', views.MessageCreate.as_view(), name='send'),
-    #url(r'^inbox/$', views.InboxView.as_view(), name='inbox'),
-    #url(r'^inbox/$', views.inboxview1, name='inbox'),
+    url(r'^app2/$', views.app2, name='app2'),
+    url(r'^app1/$', views.app1, name='app1'),
+    url(r'^logout/$', views.logoutview, name='logout'),
     url(r'^signin/$', views.SignIn.as_view(), name='signin')
 ]

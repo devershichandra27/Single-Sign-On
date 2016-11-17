@@ -1,29 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
-from django.views import generic
 from django.views.generic import View
-from .models import Message
 from .forms import UserForm, SignInForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 # Create your views here.
-
-
-
-
-class MessageCreate(CreateView):
-    model = Message
-    fields = ['Sender', 'Recipient', 'Mails']
-
-
-'''@login_required(login_url='/chat/signin')
-def inboxview1(request):
-    template_name = 'chat/inbox.html'
-    all_messages = Message.objects.filter(Sender='Deadpool')
-
-    return render(request, template_name, {'all_messages':all_messages, 'user':user})'''
-
 
 
 class UserFormView(View):
@@ -47,7 +28,7 @@ class UserFormView(View):
             return HttpResponse('Registration Successful! :-) <a href = "signin"> Click here to continue! </a> ')
 
         else:
-             return render(request, self.template_name, dict(form=form))
+            return render(request, self.template_name, dict(form=form))
 
 
 class SignIn(View):
@@ -66,8 +47,22 @@ class SignIn(View):
 
         if user is not None:
             login(request, user)
-            all_messages = Message.objects.filter(Sender=str(user).title())
-            context = dict(user=user, all_messages=all_messages)
-            return render(request, 'chat/inbox.html', context)
+            return render(request, 'chat/app1.html', {})
         else:
             return HttpResponse('Something went wrong <a href = ""> Try again!</a> ')
+
+@login_required(login_url="/chat/signin/")
+def app1(request):
+    user1 = request.user
+    return render(request, 'chat/app1.html', {'user':user1.username})
+
+
+@login_required(login_url="/chat/signin/")
+def app2(request):
+    user1 = request.user
+    return render(request, 'chat/app2.html', {'user':user1.username})
+
+@login_required(login_url="/chat/signin/")
+def logoutview(request):
+    logout(request)
+    return HttpResponse('Logout Successful! :-) <a href = "/chat/signin"> Click here to continue! </a> ')
